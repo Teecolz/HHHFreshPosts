@@ -21,17 +21,17 @@ def strip_title(title):
         return title[:89] + "..."
 
 
-def valid_link(link):
-    """
-    Checks if submission link is considered valid, if it is from a known website.
-    """
-    if ("soundcloud") or ("youtu") or ("bandcamp") or ("piff") in link:
-        valid = True
-        print link + " is a valid link."
-    else:
-        valid = False
-        print link + " is invalid link."
-    return valid
+# def valid_link(link):
+#     """
+#     Checks if submission link is considered valid, if it is from a known website.
+#     """
+#     if ("soundcloud") or ("youtu") or ("bandcamp") or ("piff") in link:
+#         valid = True
+#         print link + " is a valid link."
+#     else:
+#         valid = False
+#         print link + " is invalid link."
+#     return valid
 
 
 def decide_upvotes(title):
@@ -153,29 +153,6 @@ def known_artist(title):
         except UnicodeEncodeError as e:
             print e
     return known
-
-
-def duplicate_check(postID):
-    """
-    [DEPRECIATED]
-    One method of duplication check:
-        Checks if Post ID is in our posted_posts list.
-    """
-    found = 0
-    with open('posted_posts.txt') as posted:
-        for line in posted:
-            if postID in line:
-                print "[DUP] " + postID + " is a duplicate"
-                found = 1
-    return found
-
-
-def add_id_to_file(postID):
-    """
-    Adds Post ID to our posted_posts so we can check later if it's a duplicate
-    """
-    with open('posted_posts.txt', 'a') as posted:
-        posted.write(str(postID) + "\n")
 
 
 def main():
