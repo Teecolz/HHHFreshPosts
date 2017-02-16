@@ -121,6 +121,28 @@ def check_if_snippet(subreddit_info):
     except UnicodeEncodeError as e:
         print e
 
+def check_if_ranking_question(subreddit_info):
+    """
+    Check if question is a "ranking question"
+    """
+    rule = "No 'Ranking' questions."
+    keyphrases = ["What's your favorite", "What's the best", "Whats the best", "Whats your favorite"]
+    try:
+        for submission in subreddit_info.new(limit=5):
+            for keyphrase in keyphrases:
+                if keyphrase in submission.title:
+                    print "[bot] %s is a Ranking Questions!" % str(submission.title[:30])
+                    print "[bot] Found " + keyphrase + " in " + submission.title[:30]
+                    submission.report("Breaks subreddit rule: " + rule + " [Reported by /u/HHHBot]")
+                    print "[bot] Submission reported. (Reason: 'Ranking Question')"
+    # pylint: disable=E0712
+    except praw.exceptions as e:
+        print "--------------REDDIT Praw ERROR---------------"
+        print e
+        time.sleep(30)
+    except UnicodeEncodeError as e:
+        print e
+
 def main():
     """
     Run our loop to stay logged in and refreshing the subreddit.
